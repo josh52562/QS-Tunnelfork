@@ -395,8 +395,13 @@ fwmark = int(config.get("fwmark", 0))
 if fwmark:
     print(f"[init] fwmark={fwmark}: QS-Tunnel sockets will be marked to bypass WireGuard routing")
 
-client_id_bytes = os.urandom(CLIENT_ID_WIDTH)
-print(f"[init] client_id: {client_id_bytes.hex()}")
+fixed_client_id = config.get("client_id", "").strip()
+if fixed_client_id:
+    client_id_bytes = bytes.fromhex(fixed_client_id)
+    print(f"[init] client_id: {client_id_bytes.hex()} (fixed)")
+else:
+    client_id_bytes = os.urandom(CLIENT_ID_WIDTH)
+    print(f"[init] client_id: {client_id_bytes.hex()} (random)")
 
 # --- Determine upload mode: built-in VLESS or external dokodemo-door ---
 vless_cfg_str = config.get("vless_config", "").strip()
@@ -452,7 +457,7 @@ fake_send_ip = config["fake_send_ip"]
 fake_send_port = int(config["fake_send_port"])
 print(f"[init] Spoof source (fake_send_ip:port): {fake_send_ip}:{fake_send_port}")
 
-wan_main_socket = create_v4_udp_dgram_socket(False, ("0.0.0.0", 0))
+wan_main_socket = create_v4_udp_dgram_socket(False, ("0.0.0.0", int(config.get("wan_port", 0))))
 _apply_fwmark(wan_main_socket)
 wan_main_socket_port = int(wan_main_socket.getsockname()[1])
 print(f"[init] WAN receive socket bound to port: {wan_main_socket_port}")

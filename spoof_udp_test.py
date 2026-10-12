@@ -8,7 +8,7 @@ from utility.packets import build_ipv4_header, build_udp_payload_v4, UDP_PROTO
 # If the other side is behind NAT, you need to run "nat_keep_alive_test.py" on the other side to keep the port open.
 
 SPOOFED_SRC_IP = "1.1.1.1"
-DST_IP = "2.2.2.2"
+DST_IP = "YOUR_CLIENT_IP"
 UDP_SRC_PORT = 443
 UDP_DST_PORT = 60443
 DATA = b"1234"

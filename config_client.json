@@ -3,10 +3,12 @@
   "vless_config": "",
   "bridge_address": "YOUR_SERVER_IP:5301",
   "xray_bridge_inbound": "",
-  "h_in_address": "127.0.0.1:10443",
-  "fake_send_ip": "",
+  "h_in_address": "0.0.0.0:10443",
+  "fake_send_ip": "1.1.1.1",
   "fake_send_port": 443,
   "my_public_ip": "ezping",
   "info_encryption_pass": "",
-  "fwmark": 0
+  "fwmark": 0,
+  "client_id": "3c8bcf",
+  "wan_port": 55000
 }
